@@ -47,6 +47,8 @@ def dispatch_tool(tool_data):
     action = tool_data.get("action")
     params = tool_data.get("parameters", {})
 
+    print("DEBUG: ", tool_data)
+
     if tool == "weight_logger":
         if action == "log":
             weight = params.get("weight")
@@ -89,7 +91,7 @@ Guidelines:
   {{"tool": "weight_logger", "action": "log", "parameters": {{"weight": <number_in_lbs>}}}}
 - If the user wants to see their weight history:
   {{"tool": "weight_logger", "action": "history"}}
-- If the user asks for weight change:
+- If the user asks for to calculate their weight change or weight difference:
   {{"tool": "weight_logger", "action": "change"}}
 - For anything else, respond normally with text.
 
@@ -120,7 +122,8 @@ def main():
 
         # --- Clean and parse possible JSON ---
         # Remove Markdown code fences if present
-        response_clean = re.sub(r"^```(?:json)?|```$", "", response.strip(), flags=re.MULTILINE).strip()
+        response_clean = re.sub(r"^```(?:json)?|```$", "",
+                                response.strip(), flags=re.MULTILINE).strip()
 
         # Try to find JSON object
         json_match = re.search(r"\{.*\}", response_clean, re.DOTALL)
