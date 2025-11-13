@@ -9,14 +9,21 @@ from langchain.prompts import ChatPromptTemplate
 # -------------------------
 # MongoDB Setup
 # -------------------------
-client = MongoClient("mongodb://localhost:27017/")
-db = client.weight_tracker
-weights_collection = db.weights
-
+try:
+    client = MongoClient("mongodb://localhost:27017")
+    client.admin.command('ping')
+    db = client.weight_tracker
+    weights_collection = db.weights
+except Exception as e:
+    print(f"Error: Could not connect to MongoDB. Please make sure it is running")
+    print(f"Error Details: {e}")
+    exit(1)
 
 # -------------------------
 # Weight Logger Functions
 # -------------------------
+
+
 def log_weight(weight):
     """Insert a new weight record (in lbs) with timestamp."""
     entry = {
@@ -91,14 +98,21 @@ Guidelines:
   {{"tool": "weight_logger", "action": "log", "parameters": {{"weight": <number_in_lbs>}}}}
 - If the user wants to see their weight history:
   {{"tool": "weight_logger", "action": "history"}}
-- If the user asks for to calculate their weight change or weight difference:
+- If the user asks for weight change:
   {{"tool": "weight_logger", "action": "change"}}
 - For anything else, respond normally with text.
 
 User input: {text}
 """
     prompt = ChatPromptTemplate.from_template(template)
-    model = OllamaLLM(model="gemma2:2b", base_url="http://localhost:11434")
+    try:
+        model = OllamaLLM(model="llama3.1:8b",
+                          base_url="http://100.64.246.90:11434")
+        model.invoke("test")
+    except Exception as e:
+        print(f"Error: Could not connect to Ollama Server. Please make sure it is running")
+        print(f"Error Details: {e}")
+        exit(1)
 
     # Modern LangChain syntax
     return prompt | model
