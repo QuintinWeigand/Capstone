@@ -8,6 +8,14 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
+type WeightDB struct {
+	collection *mongo.Collection
+}
+
+func NewWeightDB(collection *mongo.Collection) *WeightDB {
+	return &WeightDB{collection: collection}
+}
+
 func GetMongoCollection() (*mongo.Collection, error) {
 	client, err := mongo.Connect(options.Client().ApplyURI("mongodb://localhost:27017"))
 	if err != nil {

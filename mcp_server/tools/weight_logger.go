@@ -6,21 +6,12 @@ import (
 	"time"
 
 	"go.mongodb.org/mongo-driver/v2/bson"
-	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
 type WeightEntry struct {
 	DateTime  string  `bson:"datetime"`
 	WeightLbs float64 `bson:"weight_lbs"`
-}
-
-type WeightDB struct {
-	collection *mongo.Collection
-}
-
-func NewWeightDB(collection *mongo.Collection) *WeightDB {
-	return &WeightDB{collection: collection}
 }
 
 func (w *WeightDB) logWeight(weight float64) error {
