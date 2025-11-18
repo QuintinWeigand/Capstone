@@ -35,7 +35,7 @@ func toolHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintln(w, result)
+	fmt.Fprint(w, result)
 }
 
 func main() {

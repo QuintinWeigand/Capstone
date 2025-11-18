@@ -64,8 +64,11 @@ func ExecuteTool(tc *ToolCall) (string, error) {
 				return "No weight entries yet.", nil
 			}
 			var result string
-			for _, h := range history {
-				result += fmt.Sprintf("%s: %.1f lbs\n", h.DateTime, h.WeightLbs)
+			for index, h := range history {
+				result += fmt.Sprintf("%s: %.1f lbs", h.DateTime, h.WeightLbs)
+				if index != len(history)-1 {
+					result += "\n"
+				}
 			}
 			return result, nil
 
