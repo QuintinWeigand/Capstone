@@ -16,6 +16,9 @@ func (self ToolCall) String() string {
 	return fmt.Sprintf("Tool: %s | Action: %s | Parameters %s", self.Tool, self.Action, string(parameters_str))
 }
 
+// TODO: I want to add a weather tool. I will stub the file I just want to make a note here
+// NOTE: Remember to edit ValidateTool and ExecuteTool to reflect the future weather api tool
+
 func ValidateTool(tc *ToolCall) error {
 	switch {
 	case tc.Tool == "":
