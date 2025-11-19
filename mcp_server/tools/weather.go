@@ -1,28 +1,52 @@
 package tools
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+)
 
-// NOTE: https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m&temperature_unit=fahrenheit
-// Above is an example url for the free weather api (10,000 non-commerical uses a day) updated to use fahrenheit
+// Example json call from Python:
+// {
+// 	"tool": "weather",
+// 	"action": "get_weather",
+// 	"parameters": {
+// 		"latitude": x,
+// 		"longitude": y
+// 	}
+// }
+
+// weight, ok := tc.Parameters["weight"].(float64)
+//
 
 type WeatherData struct {
-	Temperature_2m []float32 `json:"temperature_2m"`
-	Latitude       float32   `json:"latitude"`
-	Longitude      float32   `json:"longitude"`
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+	Hourly    struct {
+		Temperature_2m []float64 `json:"temperature_2m"`
+	} `json:"hourly"`
 }
 
-func findMaxTemp(temps []float32) float32 {
-	var maxTemp float32 = 0.0
-	for _, temp := range temps {
-		if temp > maxTemp {
-			maxTemp = temp
-		}
-	}
-	return maxTemp
-}
-
-// NOTE: We are assuming that max temp is the value we even want.
-// TODO: Find out what value we desire from the API data
 func (self WeatherData) String() string {
-	return fmt.Sprintf("Lat: %f | Long: %f | Max Temp: %f", self.Latitude, self.Longitude, findMaxTemp(self.Temperature_2m))
+	return fmt.Sprintf("Lat: %f | Long: %f | Current Temp: %f", self.Latitude, self.Longitude, self.Hourly.Temperature_2m[0])
+}
+
+func callWeatherAPI(lat float64, long float64) (float64, error) {
+	var wd WeatherData
+	url := fmt.Sprintf("https://api.open-meteo.com/v1/forecast?latitude=%f&longitude=%f&hourly=temperature_2m&temperature_unit=fahrenheit", lat, long)
+	resp, err := http.Get(url)
+	if err != nil {
+		return 0.0, fmt.Errorf("Failed to call Weather API")
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return 0.0, fmt.Errorf("Weather API returned status: %d", resp.StatusCode)
+	}
+	err = json.NewDecoder(resp.Body).Decode(&wd)
+	if err != nil {
+		return 0.0, fmt.Errorf("Failed to decode JSON for Weather API")
+	}
+
+	return wd.Hourly.Temperature_2m[0], nil
 }

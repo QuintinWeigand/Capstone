@@ -12,12 +12,9 @@ type ToolCall struct {
 }
 
 func (self ToolCall) String() string {
-	parameters_str, _ := json.Marshal(self.Parameters)
-	return fmt.Sprintf("Tool: %s | Action: %s | Parameters %s", self.Tool, self.Action, string(parameters_str))
+	parameters, _ := json.Marshal(self.Parameters)
+	return fmt.Sprintf("Tool: %s | Action: %s | Parameters %s", self.Tool, self.Action, string(parameters))
 }
-
-// TODO: I want to add a weather tool. I will stub the file I just want to make a note here
-// NOTE: Remember to edit ValidateTool and ExecuteTool to reflect the future weather api tool
 
 func ValidateTool(tc *ToolCall) error {
 	switch {
@@ -28,6 +25,13 @@ func ValidateTool(tc *ToolCall) error {
 	case tc.Tool == "weight_logger":
 		switch tc.Action {
 		case "log", "history", "change":
+			return nil
+		default:
+			return fmt.Errorf("unknown action: %s", tc.Action)
+		}
+	case tc.Tool == "weather":
+		switch tc.Action {
+		case "get_weather":
 			return nil
 		default:
 			return fmt.Errorf("unknown action: %s", tc.Action)
@@ -84,11 +88,29 @@ func ExecuteTool(tc *ToolCall) (string, error) {
 				return "", fmt.Errorf("failed to compute change: %v", err)
 			}
 			return fmt.Sprintf("Weight change: %+.1f lbs", change), nil
-
 		default:
-			return "", fmt.Errorf("unknown tool: %s", tc.Tool)
+			return "", fmt.Errorf("unknown action of weight_logger: %s", tc.Tool)
 		}
+	case "weather":
+		switch tc.Action {
+		case "get_weather":
+			lat, ok := tc.Parameters["latitude"].(float64)
+			if !ok {
+				return "", fmt.Errorf("latitude must be a floating point number")
+			}
+			long, ok := tc.Parameters["longitude"].(float64)
+			if !ok {
+				return "", fmt.Errorf("latitude must be a floating point number")
+			}
 
+			temperature, err := callWeatherAPI(lat, long)
+			if err != nil {
+				return "", fmt.Errorf("failed to get temperature data: %v", err)
+			}
+			return fmt.Sprintf("Weather at lat: %f long: %f | %f", lat, long, temperature), nil
+		default:
+			return "", fmt.Errorf("unknown action of weather: %s", tc.Action)
+		}
 	default:
 		return "", fmt.Errorf("unknown tool: %s", tc.Tool)
 	}

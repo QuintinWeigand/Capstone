@@ -14,9 +14,9 @@ func toolHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	var result string
 
+	// This parses and decodes the JSON
 	err = json.NewDecoder(r.Body).Decode(&toolCall)
 
-	// This parses and decodes the JSON
 	if err != nil {
 		http.Error(w, "Invalid JSON", http.StatusBadRequest)
 		return
