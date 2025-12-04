@@ -16,31 +16,24 @@ def call_mcp_server(tool_data):
         return f"Error calling MCP Server: {e}"
 
 
+def load_system_prompt(file):
+    try:
+        with open(file, 'r') as f:
+            return f.read().strip()
+    except FileNotFoundError:
+        print(f"Error: {file} not found!")
+        return ""
+    except Exception as e:
+        print(f"Error reading system prompt -> {e}")
+        return ""
+
+
 # -------------------------
 # LangChain / Ollama Setup
 # -------------------------
 def create_chain():
-    template = """
-You are a multi-tool assistant. You can either respond normally in conversation,
-or call a tool when needed.
+    template = load_system_prompt("system_prompt.txt")
 
-Tools available:
-1. weight_logger – for logging and viewing weight (in pounds).
-
-Guidelines:
-- All weights must be in pounds (lbs).
-- If the user provides their weight in kilograms (kg), DO NOT log it.
-  Instead, politely ask them to provide their weight in pounds.
-- If the user mentions or wants to log their weight in lbs, respond ONLY in JSON like this:
-  {{"tool": "weight_logger", "action": "log", "parameters": {{"weight": <number_in_lbs>}}}}
-- If the user wants to see their weight history:
-  {{"tool": "weight_logger", "action": "history"}}
-- If the user asks for weight change:
-  {{"tool": "weight_logger", "action": "change"}}
-- For anything else, respond normally with text.
-
-User input: {text}
-"""
     prompt = ChatPromptTemplate.from_template(template)
     try:
         model = OllamaLLM(model="llama3.1:8b",

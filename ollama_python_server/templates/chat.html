@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multi-Tool Assistant</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+        }
+        
+        h1 { 
+            margin-bottom: 20px; 
+        }
+        
+        .input-container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            margin-bottom: 20px; 
+        }
+        
+        .text-form { 
+            display: flex; 
+            gap: 10px; 
+            align-items: center; 
+        }
+        
+        .voice-section { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            flex-wrap: wrap; 
+        }
+        
+        .message { 
+            margin: 10px 0; 
+            padding: 10px; 
+            border-radius: 5px; 
+        }
+        
+        .user { 
+            background-color: #e3f2fd; 
+        }
+        
+        .assistant { 
+            background-color: #f5f5f5; 
+        }
+        
+        .text-form input { 
+            width: 300px; 
+            padding: 8px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+        }
+        
+        .text-form button { 
+            padding: 8px 16px; 
+            border: none; 
+            border-radius: 4px; 
+            background-color: #007bff; 
+            color: white; 
+            cursor: pointer; 
+        }
+        
+        .record-btn { 
+            padding: 8px 16px; 
+            border: none; 
+            border-radius: 4px; 
+            background-color: #f0f0f0; 
+            cursor: pointer; 
+            font-size: 14px; 
+            min-width: 80px; 
+        }
+        
+        .record-btn:hover { 
+            background-color: #e0e0e0; 
+        }
+        
+        .record-btn.recording { 
+            background-color: #dc3545; 
+            color: white; 
+            animation: pulse 1.5s infinite; 
+        }
+        
+        @keyframes pulse { 
+            0% { opacity: 1; } 
+            50% { opacity: 0.7; } 
+            100% { opacity: 1; } 
+        }
+        
+        .status-text { 
+            font-size: 14px; 
+            color: #666; 
+            font-style: italic; 
+        }
+        
+        .timer-text { 
+            font-size: 14px; 
+            color: #dc3545; 
+            font-weight: bold; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Multi-Tool Assistant</h1>
+    
+    <div class="input-container">
+        <form method="POST" action="/send" class="text-form">
+            <input type="text" name="message" placeholder="Enter your message..." required>
+            <button type="submit">Send</button>
+        </form>
+        
+        <div class="voice-section">
+            <button id="recordBtn" class="record-btn" title="Record voice message">Mic</button>
+            <span id="recordStatus" class="status-text">Click to speak</span>
+            <span id="recordTimer" class="timer-text" style="display:none;">0:00</span>
+            <span id="transcribeStatus" class="status-text" style="display:none;">Transcribing...</span>
+        </div>
+    </div>
+    
+    {% if user_input %}
+    <div class="conversation">
+        <div class="message user">
+            <strong>You:</strong> {{ user_input }}
+        </div>
+        <div class="message assistant">
+            <strong>Assistant:</strong> {{ response }}
+        </div>
+    </div>
+    {% endif %}
+
+    <script>
+        // Global variables
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+        let recordingStartTime;
+        let timerInterval;
+
+        // DOM elements
+        const recordBtn = document.getElementById('recordBtn');
+        const recordStatus = document.getElementById('recordStatus');
+        const recordTimer = document.getElementById('recordTimer');
+        const transcribeStatus = document.getElementById('transcribeStatus');
+
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            recordBtn.addEventListener('mousedown', startRecording);
+            recordBtn.addEventListener('mouseup', stopRecording);
+            recordBtn.addEventListener('mouseleave', stopRecording);
+            
+            // Touch events for mobile
+            recordBtn.addEventListener('touchstart', startRecording);
+            recordBtn.addEventListener('touchend', stopRecording);
+        });
+
+        async function startRecording(event) {
+            event.preventDefault();
+            
+            if (isRecording) return;
+            
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        sampleRate: 16000
+                    } 
+                });
+                
+                mediaRecorder = new MediaRecorder(stream, {
+                    mimeType: 'audio/webm;codecs=opus'
+                });
+                
+                audioChunks = [];
+                
+                mediaRecorder.ondataavailable = function(event) {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                    }
+                };
+                
+                mediaRecorder.onstop = function() {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    uploadAudio(audioBlob);
+                };
+                
+                mediaRecorder.start();
+                isRecording = true;
+                recordingStartTime = Date.now();
+                
+                updateRecordingUI(true);
+                startTimer();
+                
+            } catch (error) {
+                console.error('Error accessing microphone:', error);
+                showError('Microphone access denied. Please allow microphone access and try again.');
+            }
+        }
+
+        function stopRecording(event) {
+            event.preventDefault();
+            
+            if (!isRecording) return;
+            
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+            
+            isRecording = false;
+            updateRecordingUI(false);
+            stopTimer();
+        }
+
+        function updateRecordingUI(recording) {
+            if (recording) {
+                recordBtn.classList.add('recording');
+                recordBtn.textContent = 'Stop';
+                recordStatus.textContent = 'Recording...';
+                recordTimer.style.display = 'inline';
+                transcribeStatus.style.display = 'none';
+            } else {
+                recordBtn.classList.remove('recording');
+                recordBtn.textContent = 'Mic';
+                recordStatus.textContent = 'Click to speak';
+                recordTimer.style.display = 'none';
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function updateTimer() {
+            const elapsed = Date.now() - recordingStartTime;
+            const seconds = Math.floor(elapsed / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            recordTimer.textContent = `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        async function uploadAudio(audioBlob) {
+            updateRecordingUI(false);
+            transcribeStatus.style.display = 'inline';
+            recordStatus.textContent = 'Transcribing...';
+            
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'recording.webm');
+            
+            try {
+                const response = await fetch('/transcribe', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    updateConversation(result.user_input, result.response);
+                } else {
+                    throw new Error('Transcription failed');
+                }
+            } catch (error) {
+                console.error('Error uploading audio:', error);
+                showError('Transcription failed. Please try again.');
+            } finally {
+                transcribeStatus.style.display = 'none';
+                recordStatus.textContent = 'Click to speak';
+            }
+        }
+
+        function updateConversation(userInput, response) {
+            // Create new conversation div
+            const conversationDiv = document.createElement('div');
+            conversationDiv.className = 'conversation';
+            
+            conversationDiv.innerHTML = `
+                <div class="message user">
+                    <strong>You:</strong> ${userInput}
+                </div>
+                <div class="message assistant">
+                    <strong>Assistant:</strong> ${response}
+                </div>
+            `;
+            
+            // Insert after the input container
+            const inputContainer = document.querySelector('.input-container');
+            inputContainer.parentNode.insertBefore(conversationDiv, inputContainer.nextSibling);
+            
+            // Scroll to new message
+            conversationDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showError(message) {
+            // Create error message
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText = `
+                background-color: #f8d7da;
+                color: #721c24;
+                padding: 10px;
+                border-radius: 5px;
+                margin: 10px 0;
+                border: 1px solid #f5c6cb;
+            `;
+            errorDiv.textContent = message;
+            
+            // Insert after the input container
+            const inputContainer = document.querySelector('.input-container');
+            inputContainer.parentNode.insertBefore(errorDiv, inputContainer.nextSibling);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                if (errorDiv.parentNode) {
+                    errorDiv.parentNode.removeChild(errorDiv);
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

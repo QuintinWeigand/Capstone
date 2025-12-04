@@ -5,8 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "flask>=3.1.2",
     "langchain>=0.3.27",
     "langchain-ollama>=0.3.10",
+    "openai-whisper>=20250625",
     "pymongo>=4.15.3",
     "requests>=2.31.0",
 ]

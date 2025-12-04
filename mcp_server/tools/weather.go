@@ -28,12 +28,14 @@ type WeatherData struct {
 }
 
 func (self WeatherData) String() string {
+	// fmt.Printf("Lat: %f | Long: %f | Current Temp: %f", self.Latitude, self.Longitude, self.Hourly.Temperature_2m[0])
 	return fmt.Sprintf("Lat: %f | Long: %f | Current Temp: %f", self.Latitude, self.Longitude, self.Hourly.Temperature_2m[0])
 }
 
 func callWeatherAPI(lat float64, long float64) (float64, error) {
 	var wd WeatherData
 	url := fmt.Sprintf("https://api.open-meteo.com/v1/forecast?latitude=%f&longitude=%f&hourly=temperature_2m&temperature_unit=fahrenheit", lat, long)
+	// fmt.Println(url)
 	resp, err := http.Get(url)
 	if err != nil {
 		return 0.0, fmt.Errorf("Failed to call Weather API")
