@@ -251,7 +251,6 @@
         async function uploadAudio(audioBlob) {
             updateRecordingUI(false);
             transcribeStatus.style.display = 'inline';
-            recordStatus.textContent = 'Transcribing...';
             
             const formData = new FormData();
             formData.append('audio', audioBlob, 'recording.webm');
