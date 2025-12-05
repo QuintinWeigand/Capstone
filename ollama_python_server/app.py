@@ -46,9 +46,11 @@ def transcribe_audio_endpoint():
         # Cleanup
         os.unlink(tmp.name)
 
-        return render_template(
-            "chat.html", user_input=transcribed_text, response=response
-        )
+        # Return JSON instead of HTML
+        return jsonify({
+            "user_input": transcribed_text,
+            "response": response
+        })
 
 
 def load_system_prompt(file):
@@ -66,7 +68,12 @@ def load_system_prompt(file):
 def load_whisper_model():
     global whisper_model
     if whisper_model is None:
-        whisper_model = whisper.load_model("base")
+        try:
+            # Load model with FP32 to avoid FP16 CPU warning
+            whisper_model = whisper.load_model("base", device="cpu")
+        except Exception as e:
+            print(f"Error loading Whisper model: {e}")
+            raise e
     return whisper_model
 
 
@@ -74,9 +81,18 @@ def transcribe_audio(audio_file_path):
     try:
         model = load_whisper_model()
         result = model.transcribe(audio_file_path)
-        return result["text"]
+        
+        # Handle both string and list cases for text
+        text = result["text"]
+        if isinstance(text, list):
+            text = " ".join(text)
+        elif isinstance(text, str):
+            text = text.strip()
+        
+        return text
     except Exception as e:
-        return f"Transcription Error -> {e}"
+        print(f"Transcription error: {e}")
+        return f"Transcription Error: {e}"
 
 
 def create_chain():

@@ -105,7 +105,7 @@
     <h1>Multi-Tool Assistant</h1>
     
     <div class="input-container">
-        <form method="POST" action="/send" class="text-form">
+        <form method="POST" action="/send" class="text-form" id="textForm">
             <input type="text" name="message" placeholder="Enter your message..." required>
             <button type="submit">Send</button>
         </form>
@@ -145,71 +145,72 @@
 
         // Initialize event listeners
         document.addEventListener('DOMContentLoaded', function() {
-            recordBtn.addEventListener('mousedown', startRecording);
-            recordBtn.addEventListener('mouseup', stopRecording);
-            recordBtn.addEventListener('mouseleave', stopRecording);
+            recordBtn.addEventListener('click', toggleRecording);
             
-            // Touch events for mobile
-            recordBtn.addEventListener('touchstart', startRecording);
-            recordBtn.addEventListener('touchend', stopRecording);
+            // Prevent form submission during recording
+            const textForm = document.getElementById('textForm');
+            if (textForm) {
+                textForm.addEventListener('submit', function(e) {
+                    if (isRecording) {
+                        e.preventDefault();
+                        showError('Please stop recording before sending a message.');
+                        return false;
+                    }
+                });
+            }
         });
 
-        async function startRecording(event) {
+        async function toggleRecording(event) {
             event.preventDefault();
             
-            if (isRecording) return;
-            
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ 
-                    audio: {
-                        echoCancellation: true,
-                        noiseSuppression: true,
-                        sampleRate: 16000
-                    } 
-                });
-                
-                mediaRecorder = new MediaRecorder(stream, {
-                    mimeType: 'audio/webm;codecs=opus'
-                });
-                
-                audioChunks = [];
-                
-                mediaRecorder.ondataavailable = function(event) {
-                    if (event.data.size > 0) {
-                        audioChunks.push(event.data);
-                    }
-                };
-                
-                mediaRecorder.onstop = function() {
-                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                    uploadAudio(audioBlob);
-                };
-                
-                mediaRecorder.start();
-                isRecording = true;
-                recordingStartTime = Date.now();
-                
-                updateRecordingUI(true);
-                startTimer();
-                
-            } catch (error) {
-                console.error('Error accessing microphone:', error);
-                showError('Microphone access denied. Please allow microphone access and try again.');
+            if (isRecording) {
+                // Stop recording
+                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                    mediaRecorder.stop();
+                }
+                isRecording = false;
+                updateRecordingUI(false);
+                stopTimer();
+            } else {
+                // Start recording
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ 
+                        audio: {
+                            echoCancellation: true,
+                            noiseSuppression: true,
+                            sampleRate: 16000
+                        } 
+                    });
+                    
+                    mediaRecorder = new MediaRecorder(stream, {
+                        mimeType: 'audio/webm;codecs=opus'
+                    });
+                    
+                    audioChunks = [];
+                    
+                    mediaRecorder.ondataavailable = function(event) {
+                        if (event.data.size > 0) {
+                            audioChunks.push(event.data);
+                        }
+                    };
+                    
+                    mediaRecorder.onstop = function() {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        uploadAudio(audioBlob);
+                    };
+                    
+                    mediaRecorder.start();
+                    isRecording = true;
+                    recordingStartTime = Date.now();
+                    
+                    updateRecordingUI(true);
+                    startTimer();
+                    
+                } catch (error) {
+                    console.error('Error accessing microphone:', error);
+                    showError('Microphone access denied. Please allow microphone access and try again.');
+                }
             }
-        }
-
-        function stopRecording(event) {
-            event.preventDefault();
-            
-            if (!isRecording) return;
-            
-            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-                mediaRecorder.stop();
-            }
-            
-            isRecording = false;
-            updateRecordingUI(false);
-            stopTimer();
         }
 
         function updateRecordingUI(recording) {
@@ -224,6 +225,7 @@
                 recordBtn.textContent = 'Mic';
                 recordStatus.textContent = 'Click to speak';
                 recordTimer.style.display = 'none';
+                transcribeStatus.style.display = 'none';
             }
         }
 
@@ -254,6 +256,18 @@
             const formData = new FormData();
             formData.append('audio', audioBlob, 'recording.webm');
             
+            // Prevent form submission during recording
+            const textForm = document.getElementById('textForm');
+            if (textForm) {
+                textForm.addEventListener('submit', function(e) {
+                    if (isRecording) {
+                        e.preventDefault();
+                        showError('Please stop recording before sending a message.');
+                        return false;
+                    }
+                });
+            }
+            
             try {
                 const response = await fetch('/transcribe', {
                     method: 'POST',
@@ -280,14 +294,13 @@
             const conversationDiv = document.createElement('div');
             conversationDiv.className = 'conversation';
             
-            conversationDiv.innerHTML = `
-                <div class="message user">
-                    <strong>You:</strong> ${userInput}
-                </div>
-                <div class="message assistant">
-                    <strong>Assistant:</strong> ${response}
-                </div>
-            `;
+            conversationDiv.innerHTML = 
+                '<div class="message user">' +
+                '<strong>You:</strong> ' + userInput +
+                '</div>' +
+                '<div class="message assistant">' +
+                '<strong>Assistant:</strong> ' + response +
+                '</div>';
             
             // Insert after the input container
             const inputContainer = document.querySelector('.input-container');
@@ -300,14 +313,13 @@
         function showError(message) {
             // Create error message
             const errorDiv = document.createElement('div');
-            errorDiv.style.cssText = `
-                background-color: #f8d7da;
-                color: #721c24;
-                padding: 10px;
-                border-radius: 5px;
-                margin: 10px 0;
-                border: 1px solid #f5c6cb;
-            `;
+            errorDiv.style.cssText = 
+                'background-color: #f8d7da;' +
+                'color: #721c24;' +
+                'padding: 10px;' +
+                'border-radius: 5px;' +
+                'margin: 10px 0;' +
+                'border: 1px solid #f5c6cb;';
             errorDiv.textContent = message;
             
             // Insert after the input container
@@ -315,7 +327,7 @@
             inputContainer.parentNode.insertBefore(errorDiv, inputContainer.nextSibling);
             
             // Remove after 5 seconds
-            setTimeout(() => {
+            setTimeout(function() {
                 if (errorDiv.parentNode) {
                     errorDiv.parentNode.removeChild(errorDiv);
                 }
