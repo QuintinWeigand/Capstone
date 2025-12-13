@@ -9,3 +9,5 @@ wheels/
 # Virtual environments
 .venv
 AGENTS.md
+
+mcp_server/mcp_server
