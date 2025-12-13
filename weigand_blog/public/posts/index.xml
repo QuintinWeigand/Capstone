@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Terminal</title>
+    <link>//localhost:1313/posts/</link>
+    <description>Recent content in Posts on Terminal</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 17 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Running Ollama Through LangChain</title>
+      <link>//localhost:1313/posts/ollama_with_langchain/</link>
+      <pubDate>Fri, 17 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/ollama_with_langchain/</guid>
+      <description>&lt;hr&gt;&#xA;&lt;h1 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h1&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;a href=&#34;//localhost:1313/posts/ollama_with_langchain/#running-ollama-through-docker&#34;&gt;Running Ollama Through Docker&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;//localhost:1313/posts/ollama_with_langchain/#interacting-with-ollama-through-langchain&#34;&gt;Interacting With Ollama through LangChain&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;//localhost:1313/posts/ollama_with_langchain/#working-example&#34;&gt;Working Example&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;//localhost:1313/posts/ollama_with_langchain/#problems&#34;&gt;Problems&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;running-ollama-through-docker&#34;&gt;Running Ollama Through Docker&lt;/h2&gt;&#xA;&lt;p&gt;Using the Docker Image on DockerHub, I created a containerized environment to run ollama and natural language machine learning models locally to be used within LangChain. As of right now, we I am only focusing on using CPU to generate tokens, we can work on GPU Acceleration later.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;DockerHub Image -&amp;gt;  &lt;a href=&#34;https://hub.docker.com/r/ollama/ollama&#34;&gt;image&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Ollama Model -&amp;gt; &lt;a href=&#34;https://ollama.com/library/gemma:2b&#34;&gt;gemma2b&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;More specifically, I chose gemma2b as a lightweight model for fast testing but mostly coherent responses.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Capstone Architecture Discussion</title>
+      <link>//localhost:1313/posts/architecture/</link>
+      <pubDate>Fri, 26 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/architecture/</guid>
+      <description>&lt;hr&gt;&#xA;&lt;h1 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h1&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;a href=&#34;//localhost:1313/posts/architecture/#dependencies&#34;&gt;Dependencies&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;//localhost:1313/posts/architecture/#langchain&#34;&gt;LangChain&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;//localhost:1313/posts/architecture/#openai-whisper&#34;&gt;OpenAI Whisper&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;//localhost:1313/posts/architecture/#ollama&#34;&gt;Ollama&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;//localhost:1313/posts/architecture/#architecture&#34;&gt;Architecture&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h2&gt;&#xA;&lt;p&gt;The architecture I will be following relies on several key tools and frameworks:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://python.langchain.com/docs/introduction/&#34;&gt;LangChain&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/openai/whisper&#34;&gt;OpenAI Whisper&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/ollama/ollama&#34;&gt;Ollama&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;I will go deeper into these in the next few sections.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;langchain&#34;&gt;LangChain&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;LangChain&lt;/strong&gt; serves as the central orchestrator for our system. It helps determine whether a user’s input requires an action or a response from a language model. Using LangChain, we can build custom actions tailored to our specific needs, allowing the agent to be more dynamic and context-aware.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
