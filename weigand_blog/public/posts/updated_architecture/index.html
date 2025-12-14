@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>New Updated Architecture Using a MCP Server :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content=" Table of Contents New Updated Architecture Purpose MCP Server Implementation Benefits of MCP Architecture Integration Flow New Updated Architecture After some deliberation, the addition of a MCP server (Model Context Protocol) was an obvious implementation. The new architecture wire-frame is below.
+Purpose The addition of a model context protocol allows safe tool calling with validation, along with a convenient abstraction layer that simplifies the main server than handles the user interface.
+" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="//localhost:1313/posts/updated_architecture/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+<link rel="stylesheet" href="//localhost:1313/terminal.css">
+
+
+
+
+<link rel="shortcut icon" href="//localhost:1313/favicon.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="New Updated Architecture Using a MCP Server">
+<meta property="og:description" content=" Table of Contents New Updated Architecture Purpose MCP Server Implementation Benefits of MCP Architecture Integration Flow New Updated Architecture After some deliberation, the addition of a MCP server (Model Context Protocol) was an obvious implementation. The new architecture wire-frame is below.
+Purpose The addition of a model context protocol allows safe tool calling with validation, along with a convenient abstraction layer that simplifies the main server than handles the user interface.
+" />
+<meta property="og:url" content="//localhost:1313/posts/updated_architecture/" />
+<meta property="og:site_name" content="Terminal" />
+
+  <meta property="og:image" content="//localhost:1313/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2025-12-13 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about" >About</a></li>
+        
+      
+        
+          <li><a href="/showcase" >Showcase</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="//localhost:1313/posts/updated_architecture/">New Updated Architecture Using a MCP Server</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2025-12-13</time></div>
+
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <hr>
+<h1 id="table-of-contents">Table of Contents<a href="#table-of-contents" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<ol>
+<li><a href="/posts/updated_architecture/#new_updated_architecture">New Updated Architecture</a></li>
+<li><a href="/posts/updated_architecture/#purpose">Purpose</a></li>
+<li><a href="/posts/updated_architecture/#mcp_server_implementation">MCP Server Implementation</a></li>
+<li><a href="/posts/updated_architecture/#benefits_of_mcp_architecture">Benefits of MCP Architecture</a></li>
+<li><a href="/posts/updated_architecture/#integration_flow">Integration Flow</a></li>
+</ol>
+<hr>
+<h2 id="new-updated-architecture">New Updated Architecture<a href="#new-updated-architecture" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>After some deliberation, the addition of a MCP server (Model Context Protocol) was an obvious implementation. The new architecture wire-frame is below.</p>
+<p><img src="/posts/updated_architecture/new_arch.png" alt="new_arch"></p>
+<hr>
+<h2 id="purpose">Purpose<a href="#purpose" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>The addition of a model context protocol allows safe tool calling with validation, along with a convenient abstraction layer that simplifies the main server than handles the user interface.</p>
+<hr>
+<h2 id="mcp-server-implementation">MCP Server Implementation<a href="#mcp-server-implementation" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>The MCP server is built in Go and serves as a dedicated tool execution service. It exposes a single HTTP endpoint at <code>/tool</code> that accepts JSON-formatted tool calls and returns structured responses.</p>
+<h3 id="core-architecture">Core Architecture<a href="#core-architecture" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>The server follows a clean modular design:</p>
+<ul>
+<li><strong>server.go</strong>: HTTP server handling incoming requests</li>
+<li><strong>tools.go</strong>: Tool routing and validation logic</li>
+<li><strong>Individual tool files</strong>: Specific implementations (weight_logger.go, weather.go, mongo_wrapper.go)</li>
+</ul>
+<h3 id="requestresponse-format">Request/Response Format<a href="#requestresponse-format" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>All tool calls follow a standardized JSON structure:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tool&#34;</span><span class="p">:</span> <span class="s2">&#34;weight_logger&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;log&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;parameters&#34;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&#34;weight&#34;</span><span class="p">:</span> <span class="mf">180.0</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This consistent format allows the AI system to generate tool calls programmatically while ensuring type safety and proper validation.</p>
+<hr>
+<h2 id="benefits-of-mcp-architecture">Benefits of MCP Architecture<a href="#benefits-of-mcp-architecture" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="separation-of-concerns">Separation of Concerns<a href="#separation-of-concerns" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>The MCP server creates clear boundaries between:</p>
+<ul>
+<li>AI processing (Python/LangChain)</li>
+<li>Tool execution (Go/MCP server)</li>
+<li>Data persistence (MongoDB)</li>
+</ul>
+<h3 id="enhanced-security">Enhanced Security<a href="#enhanced-security" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>All tool inputs are validated before execution:</p>
+<ul>
+<li>Parameter type checking</li>
+<li>Range validation for numeric inputs</li>
+<li>Structured error handling</li>
+</ul>
+<h3 id="extensibility">Extensibility<a href="#extensibility" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Adding new tools follows a consistent pattern:</p>
+<ol>
+<li>Create tool implementation file</li>
+<li>Add validation logic</li>
+<li>Register in the tool router</li>
+<li>Update AI system prompt</li>
+</ol>
+<p>This makes the system easily expandable for future capabilities.</p>
+<hr>
+<h2 id="integration-flow">Integration Flow<a href="#integration-flow" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>The complete request flow demonstrates the architecture&rsquo;s elegance:</p>
+<ol>
+<li>User input → Python Flask server</li>
+<li>LangChain processes input with Ollama LLM</li>
+<li>AI generates JSON tool call if needed</li>
+<li>HTTP POST to MCP server</li>
+<li>Tool execution with validation</li>
+<li>Response returned to AI server</li>
+<li>Formatted output presented to user</li>
+</ol>
+<p>This flow ensures each component handles its specialized task while maintaining clean interfaces between services.</p>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h">Read other posts</span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+      <a href="//localhost:1313/posts/available_tools/" class="button inline prev">
+        &lt; [<span class="button__text">Implemented Tools</span>]
+      </a>
+    
+    
+      ::
+    
+    
+      <a href="//localhost:1313/posts/ollama_integration/" class="button inline next">
+         [<span class="button__text">Ollama Integration</span>] &gt;
+      </a>
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

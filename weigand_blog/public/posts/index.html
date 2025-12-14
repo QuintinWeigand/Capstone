@@ -168,9 +168,9 @@
     
       <article class="post on-list">
         <h2 class="post-title">
-          <a href="//localhost:1313/posts/ollama_with_langchain/">Running Ollama Through LangChain</a>
+          <a href="//localhost:1313/posts/development_challenges/">Challenges and Solutions During Development</a>
         </h2>
-        <div class="post-meta"><time class="post-date">2025-10-17</time></div>
+        <div class="post-meta"><time class="post-date">2025-12-14</time></div>
 
         
 
@@ -182,34 +182,37 @@
             <hr>
 <h1 id="table-of-contents">Table of Contents</h1>
 <ol>
-<li><a href="/posts/ollama_with_langchain/#running-ollama-through-docker">Running Ollama Through Docker</a></li>
-<li><a href="/posts/ollama_with_langchain/#interacting-with-ollama-through-langchain">Interacting With Ollama through LangChain</a></li>
-<li><a href="/posts/ollama_with_langchain/#working-example">Working Example</a></li>
-<li><a href="/posts/ollama_with_langchain/#problems">Problems</a></li>
+<li><a href="/posts/development_challenges/#overview">Overview</a></li>
+<li><a href="/posts/development_challenges/#technical_challenges">Technical Challenges</a></li>
+<li><a href="/posts/development_challenges/#architecture_challenges">Architecture Challenges</a></li>
+<li><a href="/posts/development_challenges/#integration_challenges">Integration Challenges</a></li>
+<li><a href="/posts/development_challenges/#performance_challenges">Performance Challenges</a></li>
+<li><a href="/posts/development_challenges/#development_workflow_challenges">Development Workflow Challenges</a></li>
+<li><a href="/posts/development_challenges/#conclusion">Conclusion</a></li>
 </ol>
 <hr>
-<h2 id="running-ollama-through-docker">Running Ollama Through Docker</h2>
-<p>Using the Docker Image on DockerHub, I created a containerized environment to run ollama and natural language machine learning models locally to be used within LangChain. As of right now, we I am only focusing on using CPU to generate tokens, we can work on GPU Acceleration later.</p>
-<ol>
-<li>DockerHub Image -&gt;  <a href="https://hub.docker.com/r/ollama/ollama">image</a></li>
-<li>Ollama Model -&gt; <a href="https://ollama.com/library/gemma:2b">gemma2b</a></li>
-</ol>
-<p>More specifically, I chose gemma2b as a lightweight model for fast testing but mostly coherent responses.</p>
+<h2 id="overview">Overview</h2>
+<p>Developing a distributed AI system with multiple components presented various challenges throughout the capstone project. This post documents the key obstacles encountered and the solutions implemented to overcome them, providing insights into the development process and problem-solving approaches.</p>
+<hr>
+<h2 id="technical-challenges">Technical Challenges</h2>
+<h3 id="challenge-1-mongodb-integration-in-go">Challenge 1: MongoDB Integration in Go</h3>
+<p><strong>Problem:</strong>
+The MongoDB integration boilerplate in Go was significantly more complex than in Python. While Python allows for simple database declaration and immediate use, Go requires more verbose setup with connection management, context handling, and explicit error checking throughout the codebase.</p>
           
         </div>
 
         
            <div>
-            <a class="read-more button inline" href="/posts/ollama_with_langchain/">[Read more]</a>
+            <a class="read-more button inline" href="/posts/development_challenges/">[Read more]</a>
           </div>
         
       </article>
     
       <article class="post on-list">
         <h2 class="post-title">
-          <a href="//localhost:1313/posts/architecture/">Capstone Architecture Discussion</a>
+          <a href="//localhost:1313/posts/frontend_development/">Frontend Development</a>
         </h2>
-        <div class="post-meta"><time class="post-date">2025-09-26</time></div>
+        <div class="post-meta"><time class="post-date">2025-12-14</time></div>
 
         
 
@@ -221,30 +224,312 @@
             <hr>
 <h1 id="table-of-contents">Table of Contents</h1>
 <ol>
-<li><a href="/posts/architecture/#dependencies">Dependencies</a></li>
-<li><a href="/posts/architecture/#langchain">LangChain</a></li>
-<li><a href="/posts/architecture/#openai-whisper">OpenAI Whisper</a></li>
-<li><a href="/posts/architecture/#ollama">Ollama</a></li>
-<li><a href="/posts/architecture/#architecture">Architecture</a></li>
+<li><a href="/posts/frontend_development/#overview">Overview</a></li>
+<li><a href="/posts/frontend_development/#flask_application_structure">Flask Application Structure</a></li>
+<li><a href="/posts/frontend_development/#html_template_design">HTML Template Design</a></li>
+<li><a href="/posts/frontend_development/#css_styling_and_layout">CSS Styling and Layout</a></li>
+<li><a href="/posts/frontend_development/#javascript_functionality">JavaScript Functionality</a></li>
+<li><a href="/posts/frontend_development/#form_handling_and_user_input">Form Handling and User Input</a></li>
+<li><a href="/posts/frontend_development/#conversation_display">Conversation Display</a></li>
+<li><a href="/posts/frontend_development/#development_process">Development Process</a></li>
 </ol>
 <hr>
-<h2 id="dependencies">Dependencies</h2>
-<p>The architecture I will be following relies on several key tools and frameworks:</p>
-<ul>
-<li><a href="https://python.langchain.com/docs/introduction/">LangChain</a></li>
-<li><a href="https://github.com/openai/whisper">OpenAI Whisper</a></li>
-<li><a href="https://github.com/ollama/ollama">Ollama</a></li>
-</ul>
-<p>I will go deeper into these in the next few sections.</p>
+<h2 id="overview">Overview</h2>
+<p>The frontend for the multi-tool AI assistant is built using Flask as the web framework, serving a single-page application with both text and voice input capabilities. The design focuses on simplicity and functionality while maintaining a clean, user-friendly interface.</p>
 <hr>
-<h2 id="langchain">LangChain</h2>
-<p><strong>LangChain</strong> serves as the central orchestrator for our system. It helps determine whether a user’s input requires an action or a response from a language model. Using LangChain, we can build custom actions tailored to our specific needs, allowing the agent to be more dynamic and context-aware.</p>
+<h2 id="flask-application-structure">Flask Application Structure</h2>
+<p>The Flask application follows a straightforward structure:</p>
           
         </div>
 
         
            <div>
-            <a class="read-more button inline" href="/posts/architecture/">[Read more]</a>
+            <a class="read-more button inline" href="/posts/frontend_development/">[Read more]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h2 class="post-title">
+          <a href="//localhost:1313/posts/scalability_considerations/">Scalability Considerations for Production Deployment</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2025-12-14</time></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <hr>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="/posts/scalability_considerations/#overview">Overview</a></li>
+<li><a href="/posts/scalability_considerations/#current_architecture_limitations">Current Architecture Limitations</a></li>
+<li><a href="/posts/scalability_considerations/#llm_scaling_strategies">LLM Scaling Strategies</a></li>
+<li><a href="/posts/scalability_considerations/#mcp_server_scaling">MCP Server Scaling</a></li>
+<li><a href="/posts/scalability_considerations/#whisper_model_scaling">Whisper Model Scaling</a></li>
+<li><a href="/posts/scalability_considerations/#database_scaling">Database Scaling</a></li>
+<li><a href="/posts/scalability_considerations/#container_orchestration">Container Orchestration</a></li>
+<li><a href="/posts/scalability_considerations/#implementation_roadmap">Implementation Roadmap</a></li>
+</ol>
+<hr>
+<h2 id="overview">Overview</h2>
+<p>While the current capstone project architecture works well for single-user development, scaling to production with multiple concurrent users requires strategic planning. This post explores scalability challenges and potential solutions for handling increased load while maintaining system reliability and performance.</p>
+<hr>
+<h2 id="current-architecture-limitations">Current Architecture Limitations</h2>
+<h3 id="single-user-design">Single-User Design</h3>
+<ul>
+<li><strong>One Ollama instance</strong>: Single Llama 3.1 8B model serving all requests</li>
+<li><strong>Lazy Whisper loading</strong>: Model loads only on first voice request</li>
+<li><strong>Single MCP server</strong>: One Go instance handling all tool calls</li>
+<li><strong>No request queuing</strong>: All requests processed immediately or fail</li>
+</ul>
+<h3 id="bottlenecks-under-load">Bottlenecks Under Load</h3>
+<ul>
+<li><strong>LLM inference</strong>: Single model becomes throughput bottleneck</li>
+<li><strong>Whisper cold starts</strong>: Each new user triggers model loading</li>
+<li><strong>Memory constraints</strong>: 8GB per model limits concurrent instances</li>
+<li><strong>Network latency</strong>: Single points of failure for all services</li>
+</ul>
+<hr>
+<h2 id="llm-scaling-strategies">LLM Scaling Strategies</h2>
+<h3 id="horizontal-model-distribution">Horizontal Model Distribution</h3>
+<p><strong>Multiple Ollama Instances:</strong></p>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/scalability_considerations/">[Read more]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h2 class="post-title">
+          <a href="//localhost:1313/posts/whisper_integration/">Whisper Integration for Voice Input</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2025-12-14</time></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <hr>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="/posts/whisper_integration/#overview">Overview</a></li>
+<li><a href="/posts/whisper_integration/#whisper_model_setup">Whisper Model Setup</a></li>
+<li><a href="/posts/whisper_integration/#audio_processing_pipeline">Audio Processing Pipeline</a></li>
+<li><a href="/posts/whisper_integration/#browser_audio_recording">Browser Audio Recording</a></li>
+<li><a href="/posts/whisper_integration/#backend_integration">Backend Integration</a></li>
+<li><a href="/posts/whisper_integration/#error_handling">Error Handling</a></li>
+</ol>
+<hr>
+<h2 id="overview">Overview</h2>
+<p>Voice input capability was added to the multi-tool assistant using OpenAI&rsquo;s Whisper model for speech-to-text transcription. This allows users to interact with the AI assistant through natural speech, making the interface more accessible and user-friendly.</p>
+<hr>
+<h2 id="whisper-model-setup">Whisper Model Setup</h2>
+<h3 id="model-selection">Model Selection</h3>
+<ul>
+<li><strong>Model</strong>: Whisper <code>base</code> model</li>
+<li><strong>Device</strong>: CPU-based processing for compatibility</li>
+<li><strong>Language</strong>: Auto-detection for multilingual support</li>
+</ul>
+<h3 id="loading-strategy">Loading Strategy</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">load_whisper_model</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="n">whisper_model</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">whisper_model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># Load model with FP32 to avoid FP16 CPU warning</span>
+</span></span><span class="line"><span class="cl">            <span class="n">whisper_model</span> <span class="o">=</span> <span class="n">whisper</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&#34;base&#34;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&#34;cpu&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Error loading Whisper model: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="n">e</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">whisper_model</span>
+</span></span></code></pre></div><h3 id="performance-considerations">Performance Considerations</h3>
+<ul>
+<li><strong>Lazy loading</strong>: Model loaded only when needed</li>
+<li><strong>Global instance</strong>: Single model instance for efficiency</li>
+<li><strong>CPU optimization</strong>: FP32 precision to avoid warnings</li>
+</ul>
+<hr>
+<h2 id="audio-processing-pipeline">Audio Processing Pipeline</h2>
+<h3 id="transcription-process">Transcription Process</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">transcribe_audio</span><span class="p">(</span><span class="n">audio_file_path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">model</span> <span class="o">=</span> <span class="n">load_whisper_model</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transcribe</span><span class="p">(</span><span class="n">audio_file_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># Handle both string and list cases for text</span>
+</span></span><span class="line"><span class="cl">        <span class="n">text</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&#34;text&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">text</span> <span class="o">=</span> <span class="s2">&#34; &#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">text</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Transcription error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="sa">f</span><span class="s2">&#34;Transcription Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><h3 id="file-management">File Management</h3>
+<ul>
+<li><strong>Temporary files</strong>: Use <code>tempfile.NamedTemporaryFile</code> for audio storage</li>
+<li><strong>Automatic cleanup</strong>: Files deleted after processing</li>
+<li><strong>Format support</strong>: Handles WebM audio from browser recording</li>
+</ul>
+<hr>
+<h2 id="browser-audio-recording">Browser Audio Recording</h2>
+<h3 id="mediarecorder-api-integration">MediaRecorder API Integration</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">toggleRecording</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">isRecording</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Stop recording
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">mediaRecorder</span><span class="p">.</span><span class="nx">stop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Start recording
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">stream</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">mediaDevices</span><span class="p">.</span><span class="nx">getUserMedia</span><span class="p">({</span> 
+</span></span><span class="line"><span class="cl">            <span class="nx">audio</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">echoCancellation</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">noiseSuppression</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">sampleRate</span><span class="o">:</span> <span class="mi">16000</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="nx">mediaRecorder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MediaRecorder</span><span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">mimeType</span><span class="o">:</span> <span class="s1">&#39;audio/webm;codecs=opus&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="nx">mediaRecorder</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="audio-configuration">Audio Configuration</h3>
+<ul>
+<li><strong>Echo cancellation</strong>: Reduces feedback and echo</li>
+<li><strong>Noise suppression</strong>: Improves audio quality</li>
+<li><strong>Sample rate</strong>: 16kHz for optimal Whisper performance</li>
+<li><strong>Format</strong>: WebM with Opus codec for browser compatibility</li>
+</ul>
+<hr>
+<h2 id="backend-integration">Backend Integration</h2>
+<h3 id="flask-endpoint">Flask Endpoint</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/transcribe&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">transcribe_audio_endpoint</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="s2">&#34;audio&#34;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;No audio file&#34;</span><span class="p">}),</span> <span class="mi">400</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">audio_file</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s2">&#34;audio&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&#34;.webm&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">audio_file</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># Transcribe audio</span>
+</span></span><span class="line"><span class="cl">        <span class="n">transcribed_text</span> <span class="o">=</span> <span class="n">transcribe_audio</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># Process transcribed text through existing pipeline</span>
+</span></span><span class="line"><span class="cl">        <span class="n">response</span> <span class="o">=</span> <span class="n">process_message</span><span class="p">(</span><span class="n">transcribed_text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># Cleanup</span>
+</span></span><span class="line"><span class="cl">        <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;user_input&#34;</span><span class="p">:</span> <span class="n">transcribed_text</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;response&#34;</span><span class="p">:</span> <span class="n">response</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span></code></pre></div><h3 id="integration-flow">Integration Flow</h3>
+<ol>
+<li><strong>Audio upload</strong> from browser to Flask endpoint</li>
+<li><strong>Temporary file storage</strong> for processing</li>
+<li><strong>Whisper transcription</strong> converts speech to text</li>
+<li><strong>AI processing</strong> through existing message pipeline</li>
+<li><strong>JSON response</strong> returns both transcription and AI response</li>
+<li><strong>File cleanup</strong> removes temporary audio file</li>
+</ol>
+<hr>
+<h2 id="error-handling">Error Handling</h2>
+<h3 id="client-side-errors">Client-Side Errors</h3>
+<ul>
+<li><strong>Microphone access</strong>: Graceful handling of permission denials</li>
+<li><strong>Recording failures</strong>: User-friendly error messages</li>
+<li><strong>Network issues</strong>: Timeout and connection error handling</li>
+</ul>
+<h3 id="server-side-errors">Server-Side Errors</h3>
+<ul>
+<li><strong>File validation</strong>: Check for audio file presence</li>
+<li><strong>Transcription failures</strong>: Catch and report Whisper errors</li>
+<li><strong>Cleanup assurance</strong>: Files removed even if processing fails</li>
+</ul>
+<h3 id="user-feedback">User Feedback</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">showError</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">errorDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">errorDiv</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;background-color: #f8d7da;&#39;</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;color: #721c24;&#39;</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;padding: 10px;&#39;</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;border-radius: 5px;&#39;</span> <span class="o">+</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;margin: 10px 0;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">errorDiv</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">message</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// Auto-remove after 5 seconds
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">errorDiv</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">errorDiv</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">errorDiv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>The Whisper integration successfully adds voice input capabilities to the AI assistant, providing a more natural and accessible user interface. The implementation demonstrates:</p>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/whisper_integration/">[Read more]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h2 class="post-title">
+          <a href="//localhost:1313/posts/available_tools/">Implemented Tools</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2025-12-13</time></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <hr>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="/posts/available_tools/#overview">Overview</a></li>
+<li><a href="/posts/available_tools/#weight_logger_tool">Weight Logger Tool</a></li>
+<li><a href="/posts/available_tools/#weather_tool">Weather Tool</a></li>
+<li><a href="/posts/available_tools/#tool_development_process">Tool Development Process</a></li>
+<li><a href="/posts/available_tools/#future_tool_ideas">Future Tool Ideas</a></li>
+</ol>
+<hr>
+<h2 id="overview">Overview</h2>
+<p>Our MCP server currently implements two core tools that demonstrate the system&rsquo;s capabilities for data persistence and external API integration. Each tool follows a consistent design pattern with validation, execution, and standardized responses.</p>
+<hr>
+<h2 id="weight-logger-tool">Weight Logger Tool</h2>
+<p>The weight logger provides comprehensive personal weight tracking functionality through MongoDB integration.</p>
+<h3 id="available-actions">Available Actions</h3>
+<p><strong>log</strong>: Records new weight entries</p>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/available_tools/">[Read more]</a>
           </div>
         
       </article>
@@ -254,6 +539,10 @@
   <div class="pagination__buttons">
     
     
+    
+      <a href="/posts/page/2/" class="button inline next">
+        [<span class="button__text">Older posts</span>] &gt;
+      </a>
     
   </div>
 </div>

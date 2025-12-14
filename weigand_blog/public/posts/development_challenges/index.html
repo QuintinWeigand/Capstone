@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>Challenges and Solutions During Development :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content=" Table of Contents Overview Technical Challenges Architecture Challenges Integration Challenges Performance Challenges Development Workflow Challenges Conclusion Overview Developing a distributed AI system with multiple components presented various challenges throughout the capstone project. This post documents the key obstacles encountered and the solutions implemented to overcome them, providing insights into the development process and problem-solving approaches.
+Technical Challenges Challenge 1: MongoDB Integration in Go Problem: The MongoDB integration boilerplate in Go was significantly more complex than in Python. While Python allows for simple database declaration and immediate use, Go requires more verbose setup with connection management, context handling, and explicit error checking throughout the codebase.
+" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="//localhost:1313/posts/development_challenges/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="//localhost:1313/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+<link rel="stylesheet" href="//localhost:1313/terminal.css">
+
+
+
+
+<link rel="shortcut icon" href="//localhost:1313/favicon.png">
+<link rel="apple-touch-icon" href="//localhost:1313/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Challenges and Solutions During Development">
+<meta property="og:description" content=" Table of Contents Overview Technical Challenges Architecture Challenges Integration Challenges Performance Challenges Development Workflow Challenges Conclusion Overview Developing a distributed AI system with multiple components presented various challenges throughout the capstone project. This post documents the key obstacles encountered and the solutions implemented to overcome them, providing insights into the development process and problem-solving approaches.
+Technical Challenges Challenge 1: MongoDB Integration in Go Problem: The MongoDB integration boilerplate in Go was significantly more complex than in Python. While Python allows for simple database declaration and immediate use, Go requires more verbose setup with connection management, context handling, and explicit error checking throughout the codebase.
+" />
+<meta property="og:url" content="//localhost:1313/posts/development_challenges/" />
+<meta property="og:site_name" content="Terminal" />
+
+  <meta property="og:image" content="//localhost:1313/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2025-12-14 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about" >About</a></li>
+        
+      
+        
+          <li><a href="/showcase" >Showcase</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="//localhost:1313/posts/development_challenges/">Challenges and Solutions During Development</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2025-12-14</time></div>
+
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <hr>
+<h1 id="table-of-contents">Table of Contents<a href="#table-of-contents" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<ol>
+<li><a href="/posts/development_challenges/#overview">Overview</a></li>
+<li><a href="/posts/development_challenges/#technical_challenges">Technical Challenges</a></li>
+<li><a href="/posts/development_challenges/#architecture_challenges">Architecture Challenges</a></li>
+<li><a href="/posts/development_challenges/#integration_challenges">Integration Challenges</a></li>
+<li><a href="/posts/development_challenges/#performance_challenges">Performance Challenges</a></li>
+<li><a href="/posts/development_challenges/#development_workflow_challenges">Development Workflow Challenges</a></li>
+<li><a href="/posts/development_challenges/#conclusion">Conclusion</a></li>
+</ol>
+<hr>
+<h2 id="overview">Overview<a href="#overview" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Developing a distributed AI system with multiple components presented various challenges throughout the capstone project. This post documents the key obstacles encountered and the solutions implemented to overcome them, providing insights into the development process and problem-solving approaches.</p>
+<hr>
+<h2 id="technical-challenges">Technical Challenges<a href="#technical-challenges" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="challenge-1-mongodb-integration-in-go">Challenge 1: MongoDB Integration in Go<a href="#challenge-1-mongodb-integration-in-go" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+The MongoDB integration boilerplate in Go was significantly more complex than in Python. While Python allows for simple database declaration and immediate use, Go requires more verbose setup with connection management, context handling, and explicit error checking throughout the codebase.</p>
+<p><strong>Solution:</strong>
+Implemented a dedicated MongoDB wrapper (<code>mongo_wrapper.go</code>) to centralize connection management and provide a cleaner interface for database operations.</p>
+<p><strong>Lessons Learned:</strong>
+Go&rsquo;s explicit error handling and type safety, while more verbose, provides better reliability and catch potential issues at compile time rather than runtime.</p>
+<h3 id="challenge-2-llm-response-format-inconsistency">Challenge 2: LLM Response Format Inconsistency<a href="#challenge-2-llm-response-format-inconsistency" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+The LLM frequently returned responses in formats or with markdown that weren&rsquo;t requested, causing JSON parsing failures and tool call errors. This was particularly problematic when the model wrapped valid JSON in markdown code blocks or added explanatory text.</p>
+<p><strong>Solution:</strong>
+Extensive system prompt engineering to enforce strict response formatting. Added regex-based cleaning to strip unwanted markdown and implemented robust JSON parsing with fallback mechanisms. The migration to Llama 3.1 8B also significantly improved response consistency.</p>
+<p><strong>Lessons Learned:</strong>
+Smaller models like Gemma 2B struggle with consistent output formatting, and prompt engineering alone isn&rsquo;t always sufficient - model capability plays a crucial role in reliability.</p>
+<h3 id="challenge-3-audio-format-compatibility">Challenge 3: Audio Format Compatibility<a href="#challenge-3-audio-format-compatibility" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+The audio format recorded by the browser (WebM with Opus codec) wasn&rsquo;t immediately compatible with the server-side processing expectations, requiring format conversion or adjustment of the processing pipeline.</p>
+<p><strong>Solution:</strong>
+Quick fix by adjusting the server-side audio handling to properly process WebM format and ensuring Whisper model could handle the input format correctly.</p>
+<p><strong>Lessons Learned:</strong>
+Browser audio recording formats need to be considered early in development, and compatibility between client-side recording and server-side processing is crucial for smooth voice functionality.</p>
+<h3 id="challenge-4-whisper-model-loading-strategy">Challenge 4: Whisper Model Loading Strategy<a href="#challenge-4-whisper-model-loading-strategy" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+The current lazy loading approach for the Whisper model works well for single-user development, but could become a bottleneck with multiple users sending voice prompts simultaneously, as each request might trigger model loading.</p>
+<p><strong>Solution:</strong>
+Implemented lazy loading with a global model instance to ensure only one model load per application lifecycle. This works for current usage but would need reconsideration for multi-user scenarios.</p>
+<p><strong>Lessons Learned:</strong>
+Model loading strategies need to scale with expected user load. Lazy loading is good for development but pre-loading or model pooling might be necessary for production environments with concurrent users.</p>
+<hr>
+<h2 id="architecture-challenges">Architecture Challenges<a href="#architecture-challenges" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="challenge-1-technology-stack-selection">Challenge 1: Technology Stack Selection<a href="#challenge-1-technology-stack-selection" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+Choosing appropriate technologies for different components while balancing development speed, learning opportunities, and project requirements.</p>
+<p><strong>Solution:</strong>
+Selected Python for the web REST API framework due to its prototyping nature - easy to get a working model up quickly. Chose Go for the MCP server because it&rsquo;s well-suited for APIs and provided an opportunity to learn the language basics while building a production-ready component.</p>
+<p><strong>Lessons Learned:</strong>
+Technology choices should consider both immediate development needs and long-term learning goals. Python excelled for rapid prototyping, while Go provided robust API development capabilities.</p>
+<h3 id="challenge-2-tool-response-architecture">Challenge 2: Tool Response Architecture<a href="#challenge-2-tool-response-architecture" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+The current architecture returns raw tool output as templates rather than processing responses through the LLM for more natural language responses. This was a deliberate scope limitation but creates less conversational user experience.</p>
+<p><strong>Solution:</strong>
+Accepted the limitation due to project scope constraints and prioritized other development areas. The current approach returns tool results directly to users without LLM reprocessing.</p>
+<p><strong>Lessons Learned:</strong>
+Project scope management sometimes requires accepting architectural compromises. Future development should consider feeding tool results back into the LLM for more natural responses, though this adds complexity to the request/response cycle.</p>
+<hr>
+<h2 id="integration-challenges">Integration Challenges<a href="#integration-challenges" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="challenge-1-service-failure-isolation">Challenge 1: Service Failure Isolation<a href="#challenge-1-service-failure-isolation" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+Ensuring that failure in one service doesn&rsquo;t bring down the entire system, while maintaining functionality for services that remain operational.</p>
+<p><strong>Solution:</strong>
+Implemented graceful error handling where service failures return user-visible error messages without crashing the entire stack. When a specific service is down, only capabilities that depend on that service are affected. For example, when database is unavailable, weather tool continues working normally.</p>
+<p><strong>Lessons Learned:</strong>
+Service isolation is crucial for system reliability. Proper error boundaries prevent cascading failures and maintain partial functionality during outages. However, some services are more critical than others - if the LLM service goes down, practically all functionality would be affected.</p>
+<h3 id="challenge-2-type-system-integration-between-python-and-go">Challenge 2: Type System Integration Between Python and Go<a href="#challenge-2-type-system-integration-between-python-and-go" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+Python&rsquo;s dynamic nature allows for flexible dictionary structures, while Go&rsquo;s static typing requires strict JSON schema definitions. This created challenges ensuring JSON generated by Python prompts could be properly deserialized in Go.</p>
+<p><strong>Solution:</strong>
+Established strong, well-defined JSON schemas for all tool calls. Created explicit Go structs that match expected JSON structure, ensuring consistent serialization/deserialization between the dynamically-typed Python frontend and statically-typed Go backend.</p>
+<p><strong>Lessons Learned:</strong>
+Cross-language integration requires careful attention to type system differences. Static typing in Go provides better error detection but requires more upfront design compared to Python&rsquo;s flexibility.</p>
+<hr>
+<h2 id="performance-challenges">Performance Challenges<a href="#performance-challenges" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="challenge-1-concurrent-request-handling">Challenge 1: Concurrent Request Handling<a href="#challenge-1-concurrent-request-handling" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+The system was never tested with concurrent requests, which could reveal performance bottlenecks, particularly with the lazy loading approach for the Whisper model.</p>
+<p><strong>Solution:</strong>
+Current implementation works well for single-user development, but concurrent request handling remains untested. The lazy loading of Whisper model would likely become a bottleneck under load.</p>
+<p><strong>Lessons Learned:</strong>
+Development testing should include concurrent scenarios to identify potential bottlenecks before production deployment. Lazy loading strategies need reconsideration for multi-user environments.</p>
+<h3 id="challenge-2-scalability-planning">Challenge 2: Scalability Planning<a href="#challenge-2-scalability-planning" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+While current performance is acceptable on development hardware, resource usage patterns and performance characteristics under load are unknown.</p>
+<p><strong>Solution:</strong>
+Accepted current performance as sufficient for capstone project scope, but identified scalability as a future consideration requiring more detailed analysis and testing.</p>
+<p><strong>Lessons Learned:</strong>
+Performance testing should extend beyond single-user scenarios. Understanding resource usage patterns is crucial for planning system scaling and capacity requirements.</p>
+<hr>
+<h2 id="development-workflow-challenges">Development Workflow Challenges<a href="#development-workflow-challenges" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="challenge-1-debugging-distributed-system-with-abstractions">Challenge 1: Debugging Distributed System with Abstractions<a href="#challenge-1-debugging-distributed-system-with-abstractions" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+Testing individual sections of the architecture was difficult due to the abstractions built throughout the system. The MCP server wasn&rsquo;t designed for direct user access, making traditional debugging approaches challenging.</p>
+<p><strong>Solution:</strong>
+Implemented simple testing approach using curl commands to verify proper responses and ensure they matched formats that Python could handle. This allowed isolated testing of MCP server functionality without needing the full stack.</p>
+<p><strong>Lessons Learned:</strong>
+When building distributed systems with abstractions, create simple testing mechanisms that can validate individual components independently. Direct API testing with tools like curl provides effective debugging for service isolation.</p>
+<h3 id="challenge-2-cross-language-dependency-management">Challenge 2: Cross-Language Dependency Management<a href="#challenge-2-cross-language-dependency-management" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><strong>Problem:</strong>
+Managing dependencies across different programming languages with varying package management approaches.</p>
+<p><strong>Solution:</strong>
+Used uv for Python dependency management, which simplified the Python side significantly. Go requires explicit dependency handling in go.mod files, which is more structured but less flexible than Python&rsquo;s approach.</p>
+<p><strong>Lessons Learned:</strong>
+Different ecosystems have different philosophies for dependency management. Python&rsquo;s uv provides modern, efficient package management, while Go&rsquo;s explicit approach ensures reproducibility but requires more manual configuration.</p>
+<hr>
+<h2 id="conclusion">Conclusion<a href="#conclusion" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>The development process for this distributed AI system presented various challenges across technical, architectural, integration, performance, and workflow domains. Each challenge provided valuable learning opportunities and helped shape the final system architecture.</p>
+<p>The key takeaway is that building distributed systems requires careful consideration of how different components interact, fail gracefully, and maintain performance under various conditions. While some challenges were resolved through technical solutions, others were managed through strategic decisions about project scope and priorities.</p>
+<p>This experience demonstrates the importance of balancing ideal solutions with practical constraints, particularly in academic project settings where time and resources are limited.</p>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h">Read other posts</span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+    
+    
+      <a href="//localhost:1313/posts/frontend_development/" class="button inline next">
+         [<span class="button__text">Frontend Development</span>] &gt;
+      </a>
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
