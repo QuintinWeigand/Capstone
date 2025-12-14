@@ -4,6 +4,8 @@ Date: 2025-12-14
 draft: "false"
 ---
 
+![frontend_example](frontend_example.png)
+
 ---
 # Table of Contents
 1. [Overview](#overview)
